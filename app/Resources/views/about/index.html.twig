@@ -1,6 +1,9 @@
 {# app/Resources/about/index.html.twig #}
-{% if name %}
-    {{ name|capitalize }} is a member of our team.
+{% if user %}
+    <h1>User Profile</h1>
+    <strong>Name: </strong>{{ user.name }} <br />
+    <strong>Email: </strong>{{ user.email }} <br />
+    <strong>Bio: </strong>{{ user.bio }}<br />
 {% else %}
-    Mava is an app for task management and collaboration.
+    <p>Mava is a web app for task management and collaboration.</p>
 {% endif %}

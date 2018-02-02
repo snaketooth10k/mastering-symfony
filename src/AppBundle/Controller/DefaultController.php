@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -27,6 +28,18 @@ class DefaultController extends Controller
      */
     public function aboutAction($name)
     {
-        return $this->render('about/index.html.twig', array('name' => $name));
+        $user = null;
+
+        if ($name) {
+            $user = $this->getDoctrine()
+                ->getRepository('AppBundle:User')
+                ->findOneBy(array('name' => $name));
+            if (false === $user instanceof User) {
+                throw $this->createNotFoundException(
+                    'No user named '. $name .' found.'
+                );
+            }
+        }
+        return $this->render('about/index.html.twig', array('user' => $user));
     }
 }
